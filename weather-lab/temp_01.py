@@ -1,14 +1,21 @@
+# ***************************************
+# weather_lab03.py - Loops and sleep
+# ***************************************
+
+# Import SenseHat from the SenseHat Emulator library
 from sense_emu import SenseHat
-import time
+
+# Import the sleep function from the time library
+from time import sleep
 
 sense = SenseHat()
 
-print("Temp,Pressure,Humidity")
+print("Temperature, Pressure, Humidity")
 
 while True:
     temperature = sense.temperature
     humidity = sense.humidity
     pressure = sense.pressure
     print(temperature,",",pressure,",",humidity)
-    time.sleep(5)
+    sleep(5)
 
