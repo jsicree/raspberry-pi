@@ -1,5 +1,5 @@
 # *****************************************************
-# weather_lab04.py - More loops and if-then statements
+# weather_lab04a.py - More loops and if-then statements
 # *****************************************************
 
 # Import SenseHat from the SenseHat Emulator library
@@ -17,11 +17,12 @@ maxReadings = 10
 # Define a counter. In programming, most counters begin at 0
 counter = 0
 
-# Create a variable to hold the high temperature
+# Create two variables to hold the high and low temperatures
 highTemp = 0.00
+lowTemp = 999.00 # Why set it to 999?
 
 # Print a header
-print("#, Temperature, Pressure, Humidity, High Temp")
+print("#, Temperature, Pressure, Humidity, High Temp, Low Temp")
 
 # This while loop will execute the indented lines under it
 # forever or until you press Ctrl-C
@@ -32,13 +33,14 @@ while counter < maxReadings:
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # If the temperature is greater than the current high temp,
-    # set the high temp to that value
     if temperature > highTemp:
         highTemp = temperature
+
+    if temperature < lowTemp:
+        lowTemp = temperature
         
     # Print the data to the screen separated by commas
-    print(counter,",",temperature,",",pressure,",",humidity,",",highTemp)
+    print(counter,",",temperature,",",pressure,",",humidity,",",highTemp,",",lowTemp)
 
     # Sleep for 5 seconds
     sleep(5)
