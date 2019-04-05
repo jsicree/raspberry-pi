@@ -13,11 +13,14 @@ import matplotlib.pyplot as plt
 
 # Define the text labels for the graph
 TEMP_PLOT_TITLE = "Temperature"
-TEMP_PLOT_XLABEL = "Reading"
 TEMP_PLOT_YLABEL = "Temperature (C)"
+PLOT_XLABEL = "Reading"
 
 # Define the number of readings to take
 NUM_READINGS = 10
+
+# Define the sleep time in seconds
+SLEEP_TIME_S = 5
 
 # Instantiate (create) a variable to access the SenseHat Emulator
 sense = SenseHat()
@@ -26,11 +29,11 @@ sense = SenseHat()
 # A function to plot an array of
 # temperature values
 # ********************************
-def plotTemperature(temperatureArray):
-    plt.title(TEMP_PLOT_TITLE)
-    plt.xlabel(TEMP_PLOT_XLABEL)
-    plt.ylabel(TEMP_PLOT_YLABEL)
-    plt.plot(temperatureArray)
+def plotData(title, y_axis_label, dataArray):
+    plt.title(title)
+    plt.xlabel(PLOT_XLABEL)
+    plt.ylabel(y_axis_label)
+    plt.plot(dataArray)
     plt.show()
 
 # Define a counter. In programming, most counters begin at 0
@@ -56,10 +59,10 @@ while counter < NUM_READINGS:
     print(counter,",",temperature,",",pressure,",",humidity)
 
     # Sleep for 5 seconds
-    sleep(5)
+    sleep(SLEEP_TIME_S)
 
     #Increment the loop counter
     counter = counter + 1
 
 # Call the plotTemperature() function to graph the data    
-plotTemperature(tempArray)
+plotData(TEMP_PLOT_TITLE, TEMP_PLOT_YLABEL, tempArray)
