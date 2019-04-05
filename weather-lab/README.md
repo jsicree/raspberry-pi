@@ -8,6 +8,4 @@ The Weather Lab is a collection of Python programs that introduce some basic Pyt
 1. `weather_lab04.py` - If-then statements
 1. `weather_lab05.py` - Graphing data with matplotlib
 1. `weather_lab06.py` - The Internet of Things, sending data over the Internet
-
-### Other Useful Programs
-*TBD*
+1. `weather_bonus.py` - Using the Sense HAT LED display
