@@ -25,7 +25,7 @@ WEATHER_URL = "https://jvypfbgwl0.execute-api.us-east-1.amazonaws.com/default/we
 WEATHER_REQ_HEADERS = {'Content-type': 'application/json'}
 
 # The remote station latitude and longitude
-STATION_LAT_LON = "40.715, -74.011"
+STATION_LAT_LON = "42.496098, -71.198130"
 
 # The station id
 STATION_ID = "WJOE" 
