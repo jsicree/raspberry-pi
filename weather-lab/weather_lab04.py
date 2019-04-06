@@ -1,11 +1,10 @@
 # *******************************************************
-# weather_lab05.py - Visualizing results with matplotlib
+# weather_lab04.py - Visualizing results with matplotlib
 # *******************************************************
 
 # Import SenseHat from the SenseHat Emulator library
+# and sleep from the time library
 from sense_emu import SenseHat
-
-# Import the sleep function from the time library
 from time import sleep
 
 # Import the matplotlib.pyplot as plt
@@ -22,13 +21,9 @@ NUM_READINGS = 10
 # Define the sleep time in seconds
 SLEEP_TIME_S = 5
 
-# Instantiate (create) a variable to access the SenseHat Emulator
-sense = SenseHat()
-
-# ********************************
-# A function to plot an array of
-# temperature values
-# ********************************
+# *************************************************
+# A function to plot an array of temperature values
+# *************************************************
 def plotData(title, y_axis_label, dataArray):
     plt.title(title)
     plt.xlabel(PLOT_XLABEL)
@@ -36,10 +31,13 @@ def plotData(title, y_axis_label, dataArray):
     plt.plot(dataArray)
     plt.show()
 
+# Create a variable to access the SenseHat Emulator
+sense = SenseHat()
+    
 # Define a counter. In programming, most counters begin at 0
 counter = 0
 
-# Create an array to hold temperature values to plot
+# Create an array to hold temperature values to plot.
 tempArray = []
 
 # Print a header
@@ -53,8 +51,9 @@ while counter < NUM_READINGS:
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # Add the current temperature to the temperature array
+    # Add the current temperature to the end of the temperature array
     tempArray.append(temperature)            
+
     # Print the data to the screen separated by commas
     print(counter,",",temperature,",",pressure,",",humidity)
 
