@@ -1,5 +1,5 @@
 # *******************************************************
-# weather_lab05.py - Visualizing results with matplotlib
+# weather_lab06.py - The Internet of Things!!
 # *******************************************************
 
 # Import SenseHat from the SenseHat Emulator library
@@ -8,61 +8,89 @@ from sense_emu import SenseHat
 # Import the sleep function from the time library
 from time import sleep
 
-# Import the matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
+# Import a JSON library to create the message
+import json
 
-# Define the text labels for the graph
-TEMP_PLOT_TITLE = "Temperature"
-TEMP_PLOT_YLABEL = "Temperature (C)"
-PLOT_XLABEL = "Reading"
+# Import the requests library to handle the web service call
+import requests
 
-# Define the number of readings to take
-NUM_READINGS = 10
+# Import datetime to format the timestamp
+import datetime
 
-# Define the sleep time in seconds
-SLEEP_TIME_S = 5
+
+# The URL of the RESTful Web Service
+WEATHER_URL = "https://jvypfbgwl0.execute-api.us-east-1.amazonaws.com/default/weatherGateway" 
+
+# Request headers indicating that the request will be JSON
+WEATHER_REQ_HEADERS = {'Content-type': 'application/json'}
+
+# The remote station latitude and longitude
+STATION_LAT_LON = "42.496098, -71.198130"
+
+# The station id
+STATION_ID = "WJOE" 
+
+# The readingDate date and time format
+READING_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
+# *****************************************************
+# A Python function to send weather data to a RESTful
+# web service. 
+# *****************************************************
+def sendReading(readingDateStr, temperature, pressure, humidity):
+
+    # Get the current date and time
+    now = datetime.datetime.now()
+    
+    # Define a structure containing the weather data.
+    # This is an example of a type of structure called a dict.
+    # It consists of a set of name/value pairs
+    req = {
+        "stationId" : STATION_ID,
+        "temperature" : temperature,
+        "pressure" : pressure,
+        "humidity" : humidity,
+        "readingDate" : readingDateStr,
+        "location" : STATION_LAT_LON
+    }
+
+    # Convert the dict to JSON.
+    data_json = json.dumps(req)
+
+    # Print the JSON request    
+    #print("REST request (JSON):", data_json)
+    
+    # Do a HTTP POST request using the predefined URL and headers, plus
+    # the JSON data structure
+    response = requests.post(WEATHER_URL, data=data_json, headers=WEATHER_REQ_HEADERS)    
+    
+    # Print the JSON response
+    #print("REST response (JSON):", response.text)
+
 
 # Instantiate (create) a variable to access the SenseHat Emulator
 sense = SenseHat()
 
-# ********************************
-# A function to plot an array of
-# temperature values
-# ********************************
-def plotData(title, y_axis_label, dataArray):
-    plt.title(title)
-    plt.xlabel(PLOT_XLABEL)
-    plt.ylabel(y_axis_label)
-    plt.plot(dataArray)
-    plt.show()
-
-# Define a counter. In programming, most counters begin at 0
-counter = 0
-
-# Create an array to hold temperature values to plot
-tempArray = []
-
 # Print a header
 print("#, Temperature, Pressure, Humidity")
 
-# This while loop will execute NUM_READINGS times
-while counter < NUM_READINGS:
+while True:
+
+    # Get the current date and time
+    now = datetime.datetime.now()
+    readingDateString = now.strftime(READING_DATE_FORMAT)
 
     # Read temperature, humidity and pressure into local variables
     temperature = sense.temperature
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # Add the current temperature to the temperature array
-    tempArray.append(temperature)            
     # Print the data to the screen separated by commas
-    print(counter,",",temperature,",",pressure,",",humidity)
+    print(readingDateString,",",temperature,",",pressure,",",humidity)
 
+    sendReading(readingDateString, temperature, pressure, humidity)
+    
     # Sleep for 5 seconds
-    sleep(SLEEP_TIME_S)
+    sleep(5)
 
-    #Increment the loop counter
-    counter = counter + 1
 
-# Call the plotTemperature() function to graph the data    
-plotData(TEMP_PLOT_TITLE, TEMP_PLOT_YLABEL, tempArray)

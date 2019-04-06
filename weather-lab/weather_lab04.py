@@ -1,12 +1,20 @@
-# *****************************************************
-# weather_lab03.py - While loops, if-then statements,
-# and sleep
-# *****************************************************
+# *******************************************************
+# weather_lab05.py - Visualizing results with matplotlib
+# *******************************************************
 
 # Import SenseHat from the SenseHat Emulator library
-# and the sleep function from the time library
 from sense_emu import SenseHat
+
+# Import the sleep function from the time library
 from time import sleep
+
+# Import the matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+
+# Define the text labels for the graph
+TEMP_PLOT_TITLE = "Temperature"
+TEMP_PLOT_YLABEL = "Temperature (C)"
+PLOT_XLABEL = "Reading"
 
 # Define the number of readings to take
 NUM_READINGS = 10
@@ -14,17 +22,28 @@ NUM_READINGS = 10
 # Define the sleep time in seconds
 SLEEP_TIME_S = 5
 
-# Create a variable to access the SenseHat Emulator
+# Instantiate (create) a variable to access the SenseHat Emulator
 sense = SenseHat()
+
+# ********************************
+# A function to plot an array of
+# temperature values
+# ********************************
+def plotData(title, y_axis_label, dataArray):
+    plt.title(title)
+    plt.xlabel(PLOT_XLABEL)
+    plt.ylabel(y_axis_label)
+    plt.plot(dataArray)
+    plt.show()
 
 # Define a counter. In programming, most counters begin at 0
 counter = 0
 
-# Create a variable to hold the high temperature
-highTemp = 0.00
+# Create an array to hold temperature values to plot
+tempArray = []
 
 # Print a header
-print("#, Temperature, Pressure, Humidity, High Temp")
+print("#, Temperature, Pressure, Humidity")
 
 # This while loop will execute NUM_READINGS times
 while counter < NUM_READINGS:
@@ -34,13 +53,10 @@ while counter < NUM_READINGS:
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # If the temperature is greater than the current high temp,
-    # set the high temp to that value
-    if temperature > highTemp:
-        highTemp = temperature
-        
+    # Add the current temperature to the temperature array
+    tempArray.append(temperature)            
     # Print the data to the screen separated by commas
-    print(counter,",",temperature,",",pressure,",",humidity,",",highTemp)
+    print(counter,",",temperature,",",pressure,",",humidity)
 
     # Sleep for 5 seconds
     sleep(SLEEP_TIME_S)
@@ -48,5 +64,5 @@ while counter < NUM_READINGS:
     #Increment the loop counter
     counter = counter + 1
 
-# This line is not indented, so it will execute after the loop finishes.
-print("Finished with loop!")
+# Call the plotTemperature() function to graph the data    
+plotData(TEMP_PLOT_TITLE, TEMP_PLOT_YLABEL, tempArray)
