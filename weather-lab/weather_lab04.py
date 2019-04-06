@@ -1,11 +1,11 @@
 # *****************************************************
-# weather_lab04.py - More loops and if-then statements
+# weather_lab03.py - While loops, if-then statements,
+# and sleep
 # *****************************************************
 
 # Import SenseHat from the SenseHat Emulator library
+# and the sleep function from the time library
 from sense_emu import SenseHat
-
-# Import the sleep function from the time library
 from time import sleep
 
 # Define the number of readings to take
@@ -14,7 +14,7 @@ NUM_READINGS = 10
 # Define the sleep time in seconds
 SLEEP_TIME_S = 5
 
-# Instantiate (create) a variable to access the SenseHat Emulator
+# Create a variable to access the SenseHat Emulator
 sense = SenseHat()
 
 # Define a counter. In programming, most counters begin at 0
@@ -26,8 +26,7 @@ highTemp = 0.00
 # Print a header
 print("#, Temperature, Pressure, Humidity, High Temp")
 
-# This while loop will execute the indented lines under it
-# forever or until you press Ctrl-C
+# This while loop will execute NUM_READINGS times
 while counter < NUM_READINGS:
 
     # Read temperature, humidity and pressure into local variables
@@ -48,4 +47,6 @@ while counter < NUM_READINGS:
 
     #Increment the loop counter
     counter = counter + 1
-    
+
+# This line is not indented, so it will execute after the loop finishes.
+print("Finished with loop!")
