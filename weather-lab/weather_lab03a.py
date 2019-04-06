@@ -1,11 +1,10 @@
 # *****************************************************
-# weather_lab04a.py - More loops and if-then statements
+# weather_lab03a.py - Adding low temperature logic
 # *****************************************************
 
 # Import SenseHat from the SenseHat Emulator library
+# and sleep from the time library
 from sense_emu import SenseHat
-
-# Import the sleep function from the time library
 from time import sleep
 
 # Instantiate (create) a variable to access the SenseHat Emulator
@@ -24,8 +23,7 @@ lowTemp = 999.00 # Why set it to 999?
 # Print a header
 print("#, Temperature, Pressure, Humidity, High Temp, Low Temp")
 
-# This while loop will execute the indented lines under it
-# forever or until you press Ctrl-C
+# This while loop will execute NUM_READINGS times
 while counter < maxReadings:
 
     # Read temperature, humidity and pressure into local variables
@@ -47,4 +45,6 @@ while counter < maxReadings:
 
     #Increment the loop counter
     counter = counter + 1
-    
+
+# The following line is not indented, so it will run after the loop finishes.
+print("Finished with the loop!")
