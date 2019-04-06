@@ -1,11 +1,10 @@
 # *******************************************************
-# weather_lab06.py - The Internet of Things!!
+# weather_lab05.py - The Internet of Things!!
 # *******************************************************
 
 # Import SenseHat from the SenseHat Emulator library
+# and the sleep function from the time library
 from sense_emu import SenseHat
-
-# Import the sleep function from the time library
 from time import sleep
 
 # Import a JSON library to create the message
@@ -16,7 +15,6 @@ import requests
 
 # Import datetime to format the timestamp
 import datetime
-
 
 # The URL of the RESTful Web Service
 WEATHER_URL = "https://jvypfbgwl0.execute-api.us-east-1.amazonaws.com/default/weatherGateway" 
@@ -37,21 +35,18 @@ READING_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 # A Python function to send weather data to a RESTful
 # web service. 
 # *****************************************************
-def sendReading(readingDateStr, temperature, pressure, humidity):
+def sendReading(stationId, readingDateStr, location, temperature, pressure, humidity):
 
-    # Get the current date and time
-    now = datetime.datetime.now()
-    
     # Define a structure containing the weather data.
     # This is an example of a type of structure called a dict.
     # It consists of a set of name/value pairs
     req = {
-        "stationId" : STATION_ID,
+        "stationId" : stationId,
         "temperature" : temperature,
         "pressure" : pressure,
         "humidity" : humidity,
         "readingDate" : readingDateStr,
-        "location" : STATION_LAT_LON
+        "location" : location
     }
 
     # Convert the dict to JSON.
@@ -65,8 +60,7 @@ def sendReading(readingDateStr, temperature, pressure, humidity):
     response = requests.post(WEATHER_URL, data=data_json, headers=WEATHER_REQ_HEADERS)    
     
     # Print the JSON response
-    #print("REST response (JSON):", response.text)
-
+    print("REST response (JSON):", response.text)
 
 # Instantiate (create) a variable to access the SenseHat Emulator
 sense = SenseHat()
@@ -86,9 +80,9 @@ while True:
     pressure = sense.pressure
 
     # Print the data to the screen separated by commas
-    print(readingDateString,",",temperature,",",pressure,",",humidity)
+    print(STATION_ID,",",readingDateString,",",STATION_LAT_LON,",",temperature,",",pressure,",",humidity)
 
-    sendReading(readingDateString, temperature, pressure, humidity)
+    sendReading(STATION_ID,readingDateString, STATION_LAT_LON, temperature, pressure, humidity)
     
     # Sleep for 5 seconds
     sleep(5)
