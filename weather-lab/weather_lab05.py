@@ -9,12 +9,6 @@ from time import sleep
 
 from weather_tools import WeatherServiceAdapter
 
-# The station id
-STATION_ID = "WJOE" 
-
-# The station location. The WeatherServiceAdapter defines a number of locations to choose from
-MY_LOCATION = WeatherServiceAdapter.STATION_LOC_BHS_FOOTBALL
-
 # Create a variable to access the SenseHat Emulator
 sense = SenseHat()
 
@@ -22,8 +16,14 @@ sense = SenseHat()
 # will allow you to send weather data to the weather dashboard
 weather_service = WeatherServiceAdapter()
 
-print("My weather station id: ", STATION_ID)
-print("My weather station location: ", weather_service.getStationLocation(MY_LOCATION)
+# The station id
+MY_STATION_ID = "WJOE" 
+
+# The station location id. The WeatherServiceAdapter defines a number of locations to choose from
+MY_STATION_LOCATION = weather_service.getStationLocation(WeatherServiceAdapter.STATION_LOC_BHS_FOOTBALL)
+
+print("My weather station id: ", MY_STATION_ID)
+print("My weather station location: ", MY_STATION_LOCATION)
 
 # Print a header
 print("#, Temperature, Pressure, Humidity")
@@ -36,9 +36,9 @@ while True:
     pressure = sense.pressure
 
     # Print the data to the screen separated by commas
-    print(STATION_ID,",",temperature,",",pressure,",",humidity)
+    print(MY_STATION_ID,",",temperature,",",pressure,",",humidity)
 
-    weather_service.sendReading(STATION_ID, MY_LOCATION, temperature, pressure, humidity)
+    weather_service.sendReading(MY_STATION_ID, MY_STATION_LOCATION, temperature, pressure, humidity)
     
     # Sleep for 5 seconds
     sleep(5)

@@ -60,7 +60,7 @@ class WeatherServiceAdapter(object):
             "pressure" : pressure,
             "humidity" : humidity,
             "readingDate" : now.strftime(WeatherServiceAdapter.READING_DATE_FORMAT),
-            "location" : station_loc
+            "location" : station_loc[WeatherServiceAdapter.LOC_COORDINATES]
         }
     
         # Convert the dict to JSON.
