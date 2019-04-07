@@ -45,17 +45,16 @@ print("#, Temperature, Pressure, Humidity")
 
 # This while loop will execute NUM_READINGS times
 while counter < NUM_READINGS:
-
     # Read temperature, humidity and pressure into local variables
     temperature = sense.temperature
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # Add the current temperature to the end of the temperature array
-    tempArray.append(temperature)            
-
     # Print the data to the screen separated by commas
     print(counter,",",temperature,",",pressure,",",humidity)
+
+    # Add the current temperature to the end of the temperature array
+    tempArray.append(temperature)            
 
     # Sleep for 5 seconds
     sleep(SLEEP_TIME_S)
