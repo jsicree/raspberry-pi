@@ -8,3 +8,6 @@ The Weather Lab is a collection of Python programs that introduce some basic Pyt
 1. `weather_lab04.py` - Functions, graphing data with matplotlib
 1. `weather_lab05.py` - The Internet of Things, sending data over the Internet
 1. `weather_bonus.py` - Using the Sense HAT LED display
+
+### Other Files
+`weather_tools.py` - A helper library containing a WeatherServiceAdapter class which will send data to an AWS API Gateway. A preset set of locations (name, lat+lon) and the endpoint for the API Gateway are defined within this library for ease of use during the class.
