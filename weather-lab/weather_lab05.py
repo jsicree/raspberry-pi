@@ -1,68 +1,58 @@
 # *******************************************************
-# weather_lab05.py - Visualizing results with matplotlib
+# weather_lab05.py - The Internet of Things!!
 # *******************************************************
 
 # Import SenseHat from the SenseHat Emulator library
+# and the sleep function from the time library
 from sense_emu import SenseHat
-
-# Import the sleep function from the time library
 from time import sleep
 
-# Import the matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
-
-# Define the text labels for the graph
-TEMP_PLOT_TITLE = "Temperature"
-TEMP_PLOT_YLABEL = "Temperature (C)"
-PLOT_XLABEL = "Reading"
-
-# Define the number of readings to take
-NUM_READINGS = 10
+# Import the WeatherServiceAdapter from our own weather_tools library
+from weather_tools import WeatherServiceAdapter
 
 # Define the sleep time in seconds
 SLEEP_TIME_S = 5
 
-# Instantiate (create) a variable to access the SenseHat Emulator
+# The station id
+MY_STATION_ID = "WJOE" 
+
+# Create a variable to access the SenseHat Emulator
 sense = SenseHat()
 
-# ********************************
-# A function to plot an array of
-# temperature values
-# ********************************
-def plotData(title, y_axis_label, dataArray):
-    plt.title(title)
-    plt.xlabel(PLOT_XLABEL)
-    plt.ylabel(y_axis_label)
-    plt.plot(dataArray)
-    plt.show()
+# Create a variable to access the WeatherServiceAdapter, which
+# will allow you to send weather data to the weather dashboard
+weather_service = WeatherServiceAdapter()
 
-# Define a counter. In programming, most counters begin at 0
-counter = 0
 
-# Create an array to hold temperature values to plot
-tempArray = []
+# The station location id. Please ask your instructor for the
+# id you should use for this lab.
+my_location_id = WeatherServiceAdapter.STATION_LOC_BHS_FOOTBALL
+
+# The station location. The WeatherServiceAdapter defines a number of locations to choose from
+my_station_location = weather_service.getStationLocation(my_location_id)
+
+# Print information about the weather station
+print("My weather station id: ", MY_STATION_ID)
+print("My weather station location: ", my_station_location)
 
 # Print a header
 print("#, Temperature, Pressure, Humidity")
 
-# This while loop will execute NUM_READINGS times
-while counter < NUM_READINGS:
-
+# Loop continuously
+while True:
     # Read temperature, humidity and pressure into local variables
     temperature = sense.temperature
     humidity = sense.humidity
     pressure = sense.pressure
 
-    # Add the current temperature to the temperature array
-    tempArray.append(temperature)            
     # Print the data to the screen separated by commas
-    print(counter,",",temperature,",",pressure,",",humidity)
+    print(MY_STATION_ID,",",temperature,",",pressure,",",humidity)
 
+    # Call the sendReading() function of our WeatherAdapterService to
+    # send our data to the data analysis dashboard on AWS
+    weather_service.sendReading(MY_STATION_ID, my_station_location, temperature, pressure, humidity)
+    
     # Sleep for 5 seconds
     sleep(SLEEP_TIME_S)
 
-    #Increment the loop counter
-    counter = counter + 1
 
-# Call the plotTemperature() function to graph the data    
-plotData(TEMP_PLOT_TITLE, TEMP_PLOT_YLABEL, tempArray)
