@@ -26,7 +26,7 @@ weather_service = WeatherServiceAdapter()
 
 # The station location id. Please ask your instructor for the
 # id you should use for this lab.
-my_location_id = WeatherServiceAdapter.STATION_LOC_BHS_FOOTBALL
+my_location_id = WeatherServiceAdapter.STATION_LOC_BURLINGTON
 
 # The station location. The WeatherServiceAdapter defines a number of locations to choose from
 my_station_location = weather_service.getStationLocation(my_location_id)
