@@ -1,0 +1,42 @@
+GET simple-index
+
+PUT simple-index
+{
+  "mappings": {
+    "weatherReading": {
+      "properties": {
+        "stationId": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "location": {
+          "type": "geo_point"
+        },
+        "temperature": {
+            "type": "float"
+        },        
+        "humidity": {
+            "type": "float"
+        },
+        "pressure": {
+            "type": "float"
+        },
+        "readingDate": {
+            "type": "date"
+        }        
+      }
+    }
+  }
+}
+
+DELETE simple-index
+{
+  "query": {
+    "match_all": {}
+  }
+}
