@@ -10,5 +10,5 @@ The Weather Lab is a collection of Python programs that introduce some basic Pyt
 1. `weather_bonus.py` - Using the Sense HAT LED display
 
 ### Other Files
-`weather_tools.py` - A helper library containing a WeatherServiceAdapter class which will send data to an AWS API Gateway. A preset set of locations (name, lat+lon) and the endpoint for the API Gateway are defined within this library for ease of use during the class.
+`weather_tools.py` - A helper library containing a WeatherServiceAdapter class which will send data to an AWS API Gateway. A preset set of locations (name, lat+lon) and the endpoint for the API Gateway are defined within this library for ease of use during the class.  
 `weather_data_gen.py` - A simple data generator that randomly selects from a set of predefined weather stations and sends data to the Weather Dashboard via the `weather_tools.py` library.
