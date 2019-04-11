@@ -2,6 +2,9 @@
 # bonus_lab.py - A bonus lab that reads the
 # humidity value from the emulator and then
 # sets the 8x8 LED display accordingly.
+# This example can be found in the Sense
+# HAT Emulator application along with other
+# examples.
 # *****************************************
 from sense_emu import SenseHat
 
